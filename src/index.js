@@ -50,6 +50,6 @@ const All = () => {
 // );
 
 ReactDOM.render(
-  <All/>,
+  <App/>,
   document.getElementById('root')
 );
