@@ -4,7 +4,7 @@ import { ListGroup } from 'reactstrap';
 
 import './post-list.css'
 
-const PostList = ({posts}) => {
+const PostList = ({posts, onDelete}) => {
 
   const elements = posts.map((item) => {
     const {id, ...itemProps} = item;
@@ -18,6 +18,7 @@ const PostList = ({posts}) => {
           <PostListItem
             label={itemProps.label}
             important={itemProps.important}
+            onDelete={() => onDelete(id)}
           />
         </li>
       )
@@ -25,7 +26,7 @@ const PostList = ({posts}) => {
   });
 
   function isEmpty(obj) {
-    for(let key in obj) {
+    for (let key in obj) {
       return true;
     }
     return false;

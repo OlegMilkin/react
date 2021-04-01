@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import PostStatusFilter from '../post-status-filter';
@@ -13,26 +13,39 @@ const AppBlock = styled.div`
   max-width: 800px;
 `
 
-const App = () => {
+export default class App extends Component {
 
-  const data = [
-    {
-      label: 'Going to learn React',
-      important: true,
-      id: 'fff',
-    },
-    {
-      label: 'This is so good',
-      important: false,
-      id: 'ggg',
-    },
-    {
-      label: 'I need a break',
-      important: false,
-      id: 'eeee',
-    },
-  ];
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        {
+          label: 'Going to learn React',
+          important: true,
+          id: 'fff',
+        },
+        {
+          label: 'This is so good',
+          important: false,
+          id: 'ggg',
+        },
+        {
+          label: 'I need a break',
+          important: false,
+          id: 'eeee',
+        },
+      ],
+    };
+    this.deleteItem = this.deleteItem.bind(this);
+  }
 
+  deleteItem(id) {
+    this.setState(({data}) => {
+      const index = data.findIndex(elem => elem.id === id)
+    });
+  }
+
+  render() {
     return (
       <AppBlock>
         <AppHeader/>
@@ -40,10 +53,12 @@ const App = () => {
           <SearchPanel/>
           <PostStatusFilter/>
         </div>
-        <PostList posts={data}/>
+        <PostList
+          posts={this.state.data}
+          onDelete={this.deleteItem}
+        />
         <PostAddForm/>
       </AppBlock>
     )
+  }
 }
-
-export default App;
