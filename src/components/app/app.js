@@ -5,6 +5,8 @@ import PostStatusFilter from '../post-status-filter';
 import PostList from '../post-list';
 import PostAddForm from "../post-add-form";
 
+import nextId from "react-id-generator";
+
 import './app.css';
 import styled from 'styled-components';
 
@@ -22,27 +24,54 @@ export default class App extends Component {
         {
           label: 'Going to learn React',
           important: true,
-          id: 'fff',
+          id: nextId(),
         },
         {
           label: 'This is so good',
           important: false,
-          id: 'ggg',
+          id: nextId(),
         },
         {
           label: 'I need a break',
           important: false,
-          id: 'eeee',
+          id: nextId(),
         },
       ],
     };
+
     this.deleteItem = this.deleteItem.bind(this);
+    this.addItem = this.addItem.bind(this);
+
   }
 
   deleteItem(id) {
     this.setState(({data}) => {
-      const index = data.findIndex(elem => elem.id === id)
+      const index = data.findIndex(elem => elem.id === id);
+      const before = data.slice(0, index);
+      const after = data.slice(index + 1);
+
+      const newArr = [...before, after];
+
+      return {
+        data: newArr
+      }
     });
+  }
+
+  addItem(body) {
+    const newItem = {
+      label: body,
+      important: false,
+      id: nextId(),
+    }
+
+    this.setState(({data}) => {
+      const newArr = [...data, newItem];
+
+      return {
+        data: newArr,
+      }
+    })
   }
 
   render() {
@@ -57,7 +86,9 @@ export default class App extends Component {
           posts={this.state.data}
           onDelete={this.deleteItem}
         />
-        <PostAddForm/>
+        <PostAddForm
+          onAdd={this.addItem}
+        />
       </AppBlock>
     )
   }
