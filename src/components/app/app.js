@@ -53,6 +53,7 @@ export default class App extends Component {
   }
 
   deleteItem(id) {
+
     this.setState(({data}) => {
       const index = data.findIndex(elem => elem.id === id);
       const before = data.slice(0, index);

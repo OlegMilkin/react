@@ -18,6 +18,7 @@ const PostList = ({posts, onDelete, onToggleImportant, onToggleLiked}) => {
           <PostListItem
             label={itemProps.label}
             important={itemProps.important}
+            like={itemProps.like}
             onDelete={() => onDelete(id)}
             onToggleImportant={() => onToggleImportant(id)}
             onToggleLiked={() => onToggleLiked(id)}
